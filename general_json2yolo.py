@@ -276,8 +276,8 @@ def convert_coco_json(json_dir='../coco/annotations/', use_segments=False, cls91
             bboxes = []
             segments = []
             for ann in anns:
-                if ann['iscrowd']:
-                    continue
+                # if ann['iscrowd']:
+                #     continue
                 # The COCO box format is [top left x, top left y, width, height]
                 box = np.array(ann['bbox'], dtype=np.float64)
                 box[:2] += box[2:] / 2  # xy top-left corner to center
@@ -381,7 +381,7 @@ def delete_dsstore(path='../datasets'):
 
 
 if __name__ == '__main__':
-    source = 'COCO'
+    source = 'individual'
 
     if source == 'COCO':
         convert_coco_json('../datasets/coco/annotations',  # directory with *.json
@@ -400,6 +400,11 @@ if __name__ == '__main__':
 
     elif source == 'ath':  # ath format
         convert_ath_json(json_dir='../../Downloads/athena/')  # images folder
+    
+    elif source == 'individual':
+            convert_coco_json('C:/Users/phili/git.haw-hamburg.de/trashberry/trash/object/data/detection/mattress_google/annotations',  # directory with *.json
+                        use_segments=False,
+                        cls91to80=False)
 
     # zip results
     # os.system('zip -r ../coco.zip ../coco')
